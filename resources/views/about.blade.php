@@ -13,7 +13,7 @@
             <div class="ui black segment">
                 <div class="ui header">The Changelog</div>
                 <ul>
-                    <li>v1.0.0 - initial release</li>
+                    <li>v1.0.0 - 12:00pm EST - 4/21/2016</li>
                     <ul>
                         <li>Leaderboards of top 250 of all past/present season</li>
                         <li>Infinite cache for seasons in past</li>
