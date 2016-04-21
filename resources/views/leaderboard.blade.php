@@ -12,7 +12,7 @@
         <a class="active item"><?= $season['name']; ?></a>
         <a href="{{ action('HomeController@getAbout') }}" class="item">About</a>
     </div>
-    <div class="ui grid">
+    <div class="ui stackable grid">
         <div class="three wide column">
             <div class="ui secondary vertical pointing menu">
                 <? foreach($season['playlists'] as $playlist): ?>
