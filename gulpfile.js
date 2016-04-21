@@ -1,5 +1,10 @@
 var elixir = require('laravel-elixir');
 
+var paths = {
+    'jquery': './node_modules/jquery/dist/',
+    'resources': './resources/'
+};
+
 /*
  |--------------------------------------------------------------------------
  | Elixir Asset Management
@@ -12,5 +17,14 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
-    mix.sass('app.scss');
+    mix
+        .copy(paths.jquery + 'jquery.min.js', 'public/js/jquery.min.js')
+        .copy(paths.resources + 'themes', 'public/themes/')
+        .styles([
+            'semantic.css'
+        ], "public/css/app.css")
+        .scripts([
+            'semantic.js'
+        ], "public/js/app.js")
+        .version(["public/css/app.css", "public/js/app.js"]);
 });
