@@ -6,7 +6,8 @@
 
 @section('content')
     <div class="ui inverted menu">
-        <a class="item"><i class="icon leaf"></i>Leafapp</a>
+        <a href="{{ action('HomeController@getIndex') }}" class="item"><i class="icon leaf"></i>Leafapp</a>
+        <a href="{{ action('HomeController@getAbout') }}" class="item">About</a>
     </div>
     <h2 class="ui header">Select a Season</h2>
     <div class="ui cards">
@@ -22,7 +23,7 @@
 
                     </div>
                 </div>
-                <a href="{{ action('HomeController@getSeason', [$season['contentId']]) }}" class="ui bottom attached button">
+                <a href="{{ action('HomeController@getPlaylist', [$season['contentId']]) }}" class="ui bottom attached button">
                     Go to Leaderboards
                 </a>
             </div>

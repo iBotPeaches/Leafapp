@@ -40,7 +40,15 @@ class HaloClient
     }
 
     /**
-     * @return \Psr\Http\Message\StreamInterface
+     * @param $minutes
+     */
+    public function setCache($minutes)
+    {
+        $this->cache = $minutes;
+    }
+
+    /**
+     * @return array
      * @throws \Exception
      */
     public function request()

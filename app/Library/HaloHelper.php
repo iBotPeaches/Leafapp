@@ -36,4 +36,23 @@ class HaloHelper
         
         throw new \Exception('Playlist not found');
     }
+
+    /**
+     * @param $season
+     * @param $playlistId
+     * @return mixed
+     * @throws \Exception
+     */
+    public static function getPlaylist($season, $playlistId)
+    {
+        foreach ($season['playlists'] as $playlist)
+        {
+            if ($playlist['contentId'] == $playlistId)
+            {
+                return $playlist;
+            }
+        }
+        
+        throw new \Exception('Playlist not found.');
+    }
 }

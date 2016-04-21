@@ -19,5 +19,6 @@
         @yield('content')
     </div>
     @yield('inline-js')
+    @include('includes.analytics')
 </body>
 </html>
