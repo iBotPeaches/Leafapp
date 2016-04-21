@@ -1,27 +1,18 @@
-# Laravel PHP Framework
+## Leaf Website (Halo 5 Leaderboards)
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+[![build status](https://gitlab.connortumbleson.com/iBotPeaches/Leafapp/badges/master/build.svg)](https://gitlab.connortumbleson.com/iBotPeaches/PandaLove/builds) [![license](https://img.shields.io/badge/license-dbad-green.svg)](http://www.dbad-license.org/)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+Leafapp was originally a Halo 4 CSR site, unforunately built in MongoDB and Codeigniter. It was recently replaced by PandaLove, whose API provides the data for Leafapp.
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+# Features
+* Halo 5 Leaderboards
+    * Past Seasons (Including Preseason)
+    * Current Seasons
+    
+## How to install
+1. coming
 
-## Official Documentation
-
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+## Thanks
+* 343 - Halo 5 API - [https://developer.haloapi.com](https://developer.haloapi.com)
+* Laravel 5.2 - PHP Framework - [http://laravel.com](http://laravel.com/)
+* SemanticUI - CSS Framework [http://semantic-ui.com](http://semantic-ui.com/)
