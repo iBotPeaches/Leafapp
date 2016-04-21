@@ -26,9 +26,17 @@ class HaloClient
      */
     public function __construct($path, $cache = null)
     {
-        $this->url = config('leaf.endpoint') . $path;
+        $this->setPath($path);
         $this->cache = $cache;
         $this->client = new GuzzleHttp\Client();
+    }
+
+    /**
+     * @param $path
+     */
+    public function setPath($path)
+    {
+        $this->url = config('leaf.endpoint') . $path;
     }
 
     /**

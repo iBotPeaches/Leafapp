@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="ui inverted menu">
-        <a class="item">Leafapp</a>
+        <a class="item"><i class="icon leaf"></i>Leafapp</a>
     </div>
     <h2 class="ui header">Select a Season</h2>
     <div class="ui cards">
@@ -22,9 +22,9 @@
 
                     </div>
                 </div>
-                <div class="ui bottom attached button">
+                <a href="{{ action('HomeController@getSeason', [$season['contentId']]) }}" class="ui bottom attached button">
                     Go to Leaderboards
-                </div>
+                </a>
             </div>
         <? endif; ?>
     <? endforeach; ?>
