@@ -21,7 +21,8 @@ elixir(function(mix) {
         .copy(paths.jquery + 'jquery.min.js', 'public/js/jquery.min.js')
         .copy(paths.resources + 'themes', 'public/themes/')
         .styles([
-            'semantic.css'
+            'semantic.css',
+            'app.css'
         ], "public/css/app.css")
         .scripts([
             'semantic.js'

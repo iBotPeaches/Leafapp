@@ -6,3 +6,7 @@ Homestead.json
 .env
 /_ide_helper.php
 .idea
+/public/build
+/public/cs
+/public/js
+/public/themes

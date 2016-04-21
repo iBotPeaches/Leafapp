@@ -109,10 +109,11 @@ return [
         'cluster' => false,
 
         'default' => [
-            'host' => env('REDIS_HOST', 'localhost'),
-            'password' => env('REDIS_PASSWORD', null),
-            'port' => env('REDIS_PORT', 6379),
-            'database' => 0,
+            'scheme'    => env('REDIS_SCHEME', 'tcp'),
+            'host'      => '127.0.0.1',
+            'port'      => 6379,
+            'database'  => 0,
+            'path'      => env('REDIS_SOCK', '/var/run/redis/redis.sock'),
         ],
 
     ],
