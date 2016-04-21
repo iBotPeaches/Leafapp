@@ -11,6 +11,7 @@
     <div class="ui two columns stackable grid">
         <div class="column">
             <div class="ui black segment">
+                <div class="ui header">The Changelog</div>
                 <ul>
                     <li>v1.0.0 - initial release</li>
                     <ul>
@@ -28,6 +29,20 @@
                     <li><a href="https://twitter.com/iBotPeaches">@iBotPeaches</a></li>
                     <li><a href="https://github.com/brandon-lile">@brandon-lile</a></li>
                 </ul>
+            </div>
+            <div class="ui green segment">
+                <div class="ui header">The Source</div>
+                <ul>
+                    <li><i>Coming Soon</i></li>
+                </ul>
+            </div>
+            <div class="ui grey segment">
+                <div class="ui header">The Legal</div>
+                <p>
+                    This application is offered by iBotPeaches, who is solely responsible for its content. It is not sponsored or endorsed by Microsoft.<br />
+                    This application uses the Halo® Game Data API. Halo © 2015 Microsoft Corporation. <br />
+                    All rights reserved. Microsoft, Halo, and the Halo Logo are trademarks of the Microsoft group of companies.
+                </p>
             </div>
         </div>
     </div>
