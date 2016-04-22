@@ -1,6 +1,6 @@
 ## Leaf Website (Halo 5 Leaderboards)
 
-[![build status](https://gitlab.connortumbleson.com/iBotPeaches/Leafapp/badges/master/build.svg)](https://gitlab.connortumbleson.com/iBotPeaches/PandaLove/builds) [![license](https://img.shields.io/badge/license-dbad-green.svg)](http://www.dbad-license.org/)
+[![build status](https://gitlab.connortumbleson.com/iBotPeaches/Leafapp/badges/master/build.svg)](https://gitlab.connortumbleson.com/iBotPeaches/Leafapp/builds) [![license](https://img.shields.io/badge/license-dbad-green.svg)](http://www.dbad-license.org/)
 
 Leafapp was originally a Halo 4 CSR site, unforunately built in MongoDB and Codeigniter. It was recently replaced by PandaLove, whose API provides the data for Leafapp.
 
