@@ -43,10 +43,13 @@
 @section('inline-js')
     <script type="text/javascript">
         $(function() {
-            $(".ui.sticky").sticky({
-                context: ".twelve.wide.column",
-                offset: 5
-            });
+
+            if ($(window).width() > 480) {
+                $(".ui.sticky").sticky({
+                    context: ".twelve.wide.column",
+                    offset: 5
+                });
+            }
         });
     </script>
 @append
