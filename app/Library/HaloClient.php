@@ -69,7 +69,8 @@ class HaloClient
         
         if ($this->cache != 0)
         {
-            \Cache::put($sum, json_decode($res->getBody(), true, 512, JSON_BIGINT_AS_STRING), $this->cache);
+            $operation = ($this->cache === -1) ? 'forever' : 'put';
+            \Cache::$operation($sum, json_decode($res->getBody(), true, 512, JSON_BIGINT_AS_STRING), $this->cache);
         }
         
         return json_decode($res->getBody(), true, 512, JSON_BIGINT_AS_STRING);

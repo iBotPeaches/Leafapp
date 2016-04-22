@@ -1,33 +1,39 @@
 <?php
-/** @var $seasons array */
+/** @var $seasons \App\Halo5\Definitions\Season[] */
 ?>
 
 @extends('master')
 
 @section('content')
-    <div class="ui inverted menu">
-        <a href="{{ action('HomeController@getIndex') }}" class="item"><i class="icon leaf"></i>Leafapp</a>
-        <a href="{{ action('HomeController@getAbout') }}" class="item">About</a>
+    <div class="ui container">
+        <h2 class="ui header">Select a Season</h2>
     </div>
-    <h2 class="ui header">Select a Season</h2>
-    <div class="ui cards">
-        <? foreach ($seasons as $season): ?>
-        <? if (count($season['playlists']) > 0): ?>
-            <div class="card">
-                <? if ($season['isActive']): ?>
-                    <a class="ui blue right corner label"><i class="crosshairs icon"></i></a>
-                <? endif; ?>
-                <div class="content">
-                    <div class="header"><?= $season['name']; ?></div>
-                    <div class="description">
-
+    <div class="ui doubling two column centered grid">
+        <div class="column">
+            <div class="ui cards">
+                <? foreach ($seasons as $season): ?>
+                <? if (count($season->playlists) > 0): ?>
+                <div class="ui centered card">
+                    <? if ($season->isActive): ?>
+                        <a class="ui blue right corner label"><i class="crosshairs icon"></i></a>
+                    <? endif; ?>
+                    <div class="content">
+                        <div class="header"><?= $season->name; ?></div>
+                        <div class="description">
+                            <? if ($season->isActive): ?>
+                                Active Season
+                            <? else: ?>
+                                <?= $season->start_date; ?> to <?= $season->end_date; ?>
+                            <? endif; ?>
+                        </div>
                     </div>
+                    <a href="{{ action('HomeController@getPlaylist', [$season->contentId]) }}" class="ui bottom attached button">
+                        Leaderboards
+                    </a>
                 </div>
-                <a href="{{ action('HomeController@getPlaylist', [$season['contentId']]) }}" class="ui bottom attached button">
-                    Go to Leaderboards
-                </a>
+                <? endif; ?>
+                <? endforeach; ?>
             </div>
-        <? endif; ?>
-    <? endforeach; ?>
+        </div>
     </div>
 @stop

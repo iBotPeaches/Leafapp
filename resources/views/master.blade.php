@@ -16,9 +16,8 @@
     @yield('inline-css')
 </head>
 <body>
-    <div class="ui container">
-        @yield('content')
-    </div>
+    @include('includes.navigation')
+    @yield('content')
     @yield('inline-js')
     @include('includes.analytics')
 </body>

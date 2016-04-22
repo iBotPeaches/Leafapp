@@ -1,5 +1,7 @@
 <?php namespace App\Http\Controllers;
 
+use App\Halo5\LeaderboardCollection;
+use App\Halo5\SeasonCollection;
 use App\Library\HaloClient;
 use App\Http\Requests;
 use App\Library\HaloHelper;
@@ -10,10 +12,10 @@ class HomeController extends Controller
 {
     public function getIndex()
     {
-        $client = new HaloClient('seasons', 1200);
-
+        $seasons = $this->_getSeasons();
+        
         return view('index', [
-            'seasons' => $client->request()['seasons']
+            'seasons' => $seasons
         ]);
     }
 
@@ -24,35 +26,72 @@ class HomeController extends Controller
     
     public function getPlaylist($seasonId, $playlistId = null)
     {
-        $client = new HaloClient('seasons', 1200);
+        $seasons = $this->_getSeasons();
+        $season = HaloHelper::getSeason($seasons, $seasonId);
         $cache = 14440;
-        $season = HaloHelper::getSeason($client->request()['seasons'], $seasonId);
-
+        
         // If Season isn't over. 10 minute cache
-        if ($season['isActive'])
+        if ($season->isActive)
         {
             $cache = 10;
         }
 
-        $client->setCache($cache);
-        
         // If no playlist passed, default to first one in season
         if ($playlistId == null)
         {
             $playlist = HaloHelper::firstPlaylist($season);
-            $playlistId = $playlist['contentId'];
+            $playlistId = $playlist->contentId;
         }
         else
         {
             $playlist = HaloHelper::getPlaylist($season, $playlistId);
         }
 
-        $client->setPath("leaderboard/" . $seasonId . "/" . $playlistId);
-        $results = $client->request()['leaderboard'];
+        $results = $this->_getLeaderboard("leaderboard/" . $seasonId . "/" . $playlistId, $cache);
+        $paginator = $this->_buildPaginator($results, $seasonId, $playlistId);
 
+        return view('leaderboard', [
+            'season' => $season,
+            'paginator' => $paginator,
+            'playlistId' => $playlistId,
+            'title' => $season->name . ": " . $playlist->name,
+            'description' => "Leaderboard of " . $season->name . ": " . $playlist->name
+        ]);
+    }
+
+    /**
+     * @return SeasonCollection
+     * @throws \Exception
+     */
+    private function _getSeasons()
+    {
+        $client = new HaloClient('seasons', 1200);
+        return new SeasonCollection($client->request());
+    }
+
+    /**
+     * @param $path
+     * @param $cache
+     * @return LeaderboardCollection
+     * @throws \Exception
+     */
+    private function _getLeaderboard($path, $cache)
+    {
+        $client = new HaloClient($path, $cache);
+        return new LeaderboardCollection($client->request());
+    }
+
+    /**
+     * @param $results LeaderboardCollection
+     * @param $seasonId string
+     * @param $playlistId string
+     * @return LengthAwarePaginator
+     */
+    private function _buildPaginator($results, $seasonId, $playlistId)
+    {
         $results = collect($results);
         $page = Input::get('page', 1);
-        $perPage = 20;
+        $perPage = 40;
 
         $paginator = new LengthAwarePaginator(
             $results->forPage($page, $perPage), $results->count(), $perPage, $page
@@ -60,12 +99,6 @@ class HomeController extends Controller
 
         $paginator->setPath("/playlist/" . $seasonId . "/" . $playlistId);
 
-        return view('leaderboard', [
-            'season' => $season,
-            'paginator' => $paginator,
-            'playlistId' => $playlistId,
-            'title' => $season['name'] . ": " . $playlist['name'],
-            'description' => "Leaderobard of " . $season['name'] . ": " . $playlist['name']
-        ]);
+        return $paginator;
     }
 }
