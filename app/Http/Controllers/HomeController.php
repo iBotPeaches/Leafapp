@@ -91,7 +91,7 @@ class HomeController extends Controller
     {
         $results = collect($results);
         $page = Input::get('page', 1);
-        $perPage = 40;
+        $perPage = 50;
 
         $paginator = new LengthAwarePaginator(
             $results->forPage($page, $perPage), $results->count(), $perPage, $page

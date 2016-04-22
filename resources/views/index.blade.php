@@ -8,7 +8,7 @@
     <div class="ui container">
         <h2 class="ui header">Select a Season</h2>
     </div>
-    <div class="ui doubling two column centered grid">
+    <div class="ui doubling container row">
         <div class="column">
             <div class="ui cards">
                 <? foreach ($seasons as $season): ?>

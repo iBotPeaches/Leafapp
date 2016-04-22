@@ -15,7 +15,7 @@
     <div class="ui container">
         <div class="ui stackable grid">
             <div class="three wide column">
-                <div class="ui vertical stackable container black menu">
+                <div class="ui vertical stackable container black menu sticky">
                     <? foreach($season->playlists as $playlist): ?>
                         <? if($playlist->isRanked): ?>
                             <a href="<?= action('HomeController@getPlaylist', [$season->contentId, $playlist->contentId]); ?>" class="<?= ($playlistId == $playlist->contentId) ? 'active' : null ?> item">
@@ -39,3 +39,14 @@
         </div>
     </div>
 @stop
+
+@section('inline-js')
+    <script type="text/javascript">
+        $(function() {
+            $(".ui.sticky").sticky({
+                context: ".twelve.wide.column",
+                offset: 5
+            });
+        });
+    </script>
+@append

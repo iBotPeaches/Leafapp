@@ -17,4 +17,8 @@
         </div>
     <? endforeach; ?>
 </div>
-<?= (new App\Pagination($paginator))->render(); ?>
+<div class="ui centered grid">
+    <div class="center aligned column">
+        <?= (new App\Pagination($paginator))->render(); ?>
+    </div>
+</div>
