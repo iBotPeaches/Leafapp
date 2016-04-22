@@ -10,6 +10,13 @@
                 <div class="ui black segment">
                     <div class="ui header">The Changelog</div>
                     <ul>
+                        <li>v1.1.1 - 8:30am EST - 4/21/2016</li>
+                        <ul>
+                            <li>Centered pagination</li>
+                            <li>Snapped menu to sidebar on desktop</li>
+                            <li>Increased per page to 50</li>
+                        </ul>
+                        <br />
                         <li>v1.1.0 - 10:00pm EST - 4/21/2016</li>
                         <ul>
                             <li>Source Released</li>
