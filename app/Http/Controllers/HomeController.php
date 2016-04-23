@@ -30,10 +30,10 @@ class HomeController extends Controller
         $season = HaloHelper::getSeason($seasons, $seasonId);
         $cache = 14440;
         
-        // If Season isn't over. 10 minute cache
+        // If Season isn't over. 1 hour
         if ($season->isActive)
         {
-            $cache = 10;
+            $cache = 60;
         }
 
         // If no playlist passed, default to first one in season
