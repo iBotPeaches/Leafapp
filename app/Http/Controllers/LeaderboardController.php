@@ -27,6 +27,7 @@ class LeaderboardController extends Controller
      */
     public function getLeaderboard(Season $season, Playlist $playlist)
     {
+        $playlist = $season->getCorrectPlaylistViaSlug($playlist->slug);
         $playlist->season_id = $season->id;
         $playlist->load('rankings');
 

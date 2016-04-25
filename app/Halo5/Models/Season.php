@@ -75,6 +75,23 @@ class Season extends Model {
     }
 
     /**
+     * @param $slug
+     * @return Playlist|null
+     */
+    public function getCorrectPlaylistViaSlug($slug)
+    {
+        foreach ($this->playlists as $playlist)
+        {
+            if ($slug == $playlist->slug)
+            {
+                return $playlist;
+            }
+        }
+        
+        return null;
+    }
+
+    /**
      * Boolean whether an update is needed on season.
      * @return bool
      */
