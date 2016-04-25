@@ -15,7 +15,7 @@
             </div>
             <img class="ui avatar image" src="<?= $record->image(); ?>">
             <div class="content">
-                <div class="header"><?= $record->rank; ?> - <?= $record->account->gamertag; ?></div>
+                <div class="header"><?= $record->rank; ?> - <a href="<?= route('profile', [$record->account]) ?>"><?= $record->account->gamertag; ?></a></div>
             </div>
         </div>
     <? endforeach; ?>
