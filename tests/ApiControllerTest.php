@@ -6,14 +6,6 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ApiControllerTest extends TestCase
 {
-    public function testSeasonPage()
-    {
-        $this->visit('/')
-            ->see('April 2016 Season')
-            ->see('Preseason')
-            ->see('Sep 18 2015 to Dec 16 2015');
-    }
-    
     public function testSeasonEndpoint()
     {
         $client = new \App\Library\HaloClient('seasons', 0);

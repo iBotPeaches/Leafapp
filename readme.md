@@ -12,6 +12,13 @@ Leafapp was originally a Halo 4 CSR site, unforunately built in MongoDB and Code
 ## How to install
 1. coming
 
+## 3rd Party
+1. Guzzle - https://github.com/guzzle/guzzle - Used for HTTP requests to APIs.
+2. IDE Helper - https://github.com/barryvdh/laravel-ide-helper - Allows PHPStorm to read Facades and more.
+3. Pagination - https://github.com/Landish/Pagination - Allows SemanticUI pagination to work with Laravel default.
+4. Debugbar - https://github.com/barryvdh/laravel-debugbar - Debugbar for optimizations.
+5. Sitemap - https://github.com/dwightwatson/sitemap - Used for generation of sitemaps.
+
 ## Thanks
 * 343 - Halo 5 API - [https://developer.haloapi.com](https://developer.haloapi.com)
 * Laravel 5.2 - PHP Framework - [http://laravel.com](http://laravel.com/)
