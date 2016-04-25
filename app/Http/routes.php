@@ -11,4 +11,17 @@
 |
 */
 
-Route::controller('/', 'HomeController');
+Route::get('/profile/{account}', [
+    'as' => 'profile', 'uses' => 'ProfileController@getProfile'
+]);
+
+Route::get('/leaderboard/{season}', [
+    'as' => 'leaderboard.index', 'uses' => 'LeaderboardController@getLeaderboardRedirect'
+]);
+
+Route::get('/leaderboard/{season}/{playlist}', [
+    'as' => 'leaderboard', 'uses' => 'LeaderboardController@getLeaderboard'
+]);
+
+Route::get('/about', ['as' => 'about', 'uses' => 'HomeController@getAbout']);
+Route::get('/', ['as' => 'index', 'uses' => 'HomeController@getIndex']);

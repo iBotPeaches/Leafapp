@@ -17,6 +17,7 @@ class Csr extends Model
      */
     public function __construct($properties)
     {
+        // @todo remove this after the new DB thing is in place
         $client = new HaloClient("csrs", -1);
         $csr = $client->request();
 

@@ -10,6 +10,14 @@
                 <div class="ui black segment">
                     <div class="ui header">The Changelog</div>
                     <ul>
+                        <li>v1.2.0 - 10pm EST - 4/24/2016</li>
+                        <ul>
+                            <li>Database Storage vs redis</li>
+                            <li>Profile pages</li>
+                            <li>Visual indicator for movement on leaderboards</li>
+                            <li>One hour refresh on active season</li>
+                        </ul>
+                        <br />
                         <li>v1.1.1 - 8:30am EST - 4/21/2016</li>
                         <ul>
                             <li>Centered pagination</li>
@@ -48,14 +56,23 @@
                     </ul>
                 </div>
                 <div class="ui purple segment">
-                    <div class="ui header">The Roadmap</div>
-                    <ul>
-                        <li class="strikethrough">Mobile Support</li>
-                        <li>Profiles</li>
-                        <li>Last Updated counter</li>
-                        <li>Visual indicator on place in leaderboard</li>
-                        <li>Search for gamertag</li>
-                    </ul>
+                    <div class="ui header">The FAQ</div>
+                    <div class="ui list">
+                        <span class="item">
+                            <i class="help icon"></i>
+                            <div class="content">
+                                <div class="header">Can I help?</div>
+                                <div class="description">The site is <a href="https://github.com/iBotPeaches/Leafapp" target="_blank">open sourced</a>. Comments, concerns or feature requests are welcome.</div>
+                            </div>
+                        </span>
+                        <span class="item">
+                            <i class="help icon"></i>
+                            <div class="content">
+                                <div class="header">I placed higher than this says!</div>
+                                <div class="description">The stats are from the conclusion of the season, which would be the rank you had when that season ended.</div>
+                            </div>
+                        </span>
+                    </div>
                 </div>
                 <div class="ui grey segment">
                     <div class="ui header">The Legal</div>

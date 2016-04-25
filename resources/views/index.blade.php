@@ -1,5 +1,5 @@
 <?php
-/** @var $seasons \App\Halo5\Definitions\Season[] */
+/** @var $seasons \App\Halo5\Models\Season[] */
 ?>
 
 @extends('master')
@@ -12,7 +12,6 @@
         <div class="column">
             <div class="ui cards">
                 <? foreach ($seasons as $season): ?>
-                <? if (count($season->playlists) > 0): ?>
                 <div class="ui centered card">
                     <? if ($season->isActive): ?>
                         <a class="ui blue right corner label"><i class="crosshairs icon"></i></a>
@@ -23,15 +22,14 @@
                             <? if ($season->isActive): ?>
                                 Active Season
                             <? else: ?>
-                                <?= $season->start_date; ?> to <?= $season->end_date; ?>
+                                <?= $season->startDate->format('M j o'); ?> to <?= $season->endDate->format('M j o'); ?>
                             <? endif; ?>
                         </div>
                     </div>
-                    <a href="{{ action('HomeController@getPlaylist', [$season->contentId]) }}" class="ui bottom attached button">
+                    <a href="{{ route('leaderboard.index', [$season->slug]) }}" class="ui bottom attached button">
                         Leaderboards
                     </a>
                 </div>
-                <? endif; ?>
                 <? endforeach; ?>
             </div>
         </div>
