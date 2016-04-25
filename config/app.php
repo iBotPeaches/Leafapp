@@ -161,6 +161,7 @@ return [
          */
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+        Watson\Sitemap\SitemapServiceProvider::class,
     ],
 
     /*
@@ -206,6 +207,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Sitemap' => Watson\Sitemap\Facades\Sitemap::class,
 
     ],
 

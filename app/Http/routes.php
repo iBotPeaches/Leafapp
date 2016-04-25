@@ -11,6 +11,22 @@
 |
 */
 
+Route::get('/sitemap/profiles', [
+    'as' => 'sitemap.profiles', 'uses' => 'SitemapController@getProfiles'
+]);
+
+Route::get('/sitemap/playlists', [
+    'as' => 'sitemap.playlists', 'uses' => 'SitemapController@getPlaylists'
+]);
+
+Route::get('/sitemap/extras', [
+    'as' => 'sitemap.extras', 'uses' => 'SitemapController@getExtras'
+]);
+
+Route::get('/sitemap', [
+    'as' => 'sitemap.index', 'uses' => 'SitemapController@getIndex'
+]);
+
 Route::get('/profile/{account}', [
     'as' => 'profile', 'uses' => 'ProfileController@getProfile'
 ]);
