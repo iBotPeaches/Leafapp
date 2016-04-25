@@ -12,6 +12,7 @@
     <!--[if lte IE 8]><script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script><![endif]-->
     <script src="{{ asset("js/jquery.min.js") }}"></script>
     <script src="{{ elixir("js/app.js") }}"></script>
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
     <link rel="stylesheet" href="{{ elixir('css/app.css') }}" />
     @yield('inline-css')
 </head>
