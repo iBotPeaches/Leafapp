@@ -1,8 +1,7 @@
 <?php
-/** @var $season \App\Halo5\Definitions\Season */
+/** @var $season \App\Halo5\Models\Season */
 /** @var $record \App\Halo5\Definitions\Record */
-/** @var $paginator \Illuminate\Pagination\LengthAwarePaginator */
-/** @var $playlistId string */
+/** @var $playlist \App\Halo5\Models\Playlist */
 ?>
 
 @extends('master')
@@ -16,19 +15,17 @@
         <div class="ui stackable grid">
             <div class="three wide column">
                 <div class="ui vertical stackable container black menu sticky">
-                    <? foreach($season->playlists as $playlist): ?>
-                        <? if($playlist->isRanked): ?>
-                            <a href="<?= action('HomeController@getPlaylist', [$season->contentId, $playlist->contentId]); ?>" class="<?= ($playlistId == $playlist->contentId) ? 'active' : null ?> item">
-                                <?= $playlist->name; ?>
-                            </a>
-                        <? endif; ?>
+                    <? foreach ($season->playlists as $_playlist): ?>
+                        <a href="<?= route('leaderboard', [$season->slug, $_playlist->slug]); ?>" class="<?= ($playlist->contentId == $_playlist->contentId) ? 'active' : null ?> item">
+                            <?= $_playlist->name; ?>
+                        </a>
                     <? endforeach; ?>
                 </div>
             </div>
             <div class="twelve wide column computer tablet only">
                 <? if ($season->isActive): ?>
                     <div class="ui info message">
-                        This season is still in process so leaderboards refresh every 10 minutes.
+                        This season is still in process so leaderboards refresh every hour.
                     </div>
                 <? endif; ?>
                 @include('includes._desktop-leaderboard')

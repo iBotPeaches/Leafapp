@@ -70,6 +70,11 @@ abstract class Model implements Arrayable, \ArrayAccess
         $this->__unset($offset);
     }
     
+    public function getRawProperty($key)
+    {
+        return (isset($this->properties[$key]) ? $this->properties[$key] : null);
+    }
+    
     protected function getProperty($key)
     {
         if (isset($this->cached[$key]))
