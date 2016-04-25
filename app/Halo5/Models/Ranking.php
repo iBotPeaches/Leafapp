@@ -162,7 +162,7 @@ class Ranking extends Model {
      */
     private function isHigher()
     {
-        return $this->getOriginal('rank') < $this->getOriginal('lastRank');
+        return $this->getOriginal('rank') < $this->getOriginal('lastRank') && $this->getOriginal('lastRank') != null;
     }
 
     /**
@@ -170,7 +170,7 @@ class Ranking extends Model {
      */
     private function isLower()
     {
-        return $this->getOriginal('rank') > $this->getOriginal('lastRank');
+        return $this->getOriginal('rank') > $this->getOriginal('lastRank') && $this->getOriginal('lastRank') != null;
     }
 
     /**
