@@ -174,17 +174,18 @@ class Ranking extends Model {
     }
 
     /**
-     * @param $value
+     * Makes number Ordinal (suffix)
+     * 
+     * @param $number
+     * @url http://stackoverflow.com/a/3110033/455008
      * @return string
      */
-    private function _getPrettyRank($value)
+    private function _getPrettyRank($number)
     {
-        switch ($value)
-        {
-            case 1: return '1st';
-            case 2: return '2nd';
-            case 3: return '3rd';
-            default: return $value . "th";
-        }
+        $ends = array('th','st','nd','rd','th','th','th','th','th','th');
+        if ((($number % 100) >= 11) && (($number % 100) <= 13))
+            return $number. 'th';
+        else
+            return $number. $ends[$number % 10];
     }
 }
