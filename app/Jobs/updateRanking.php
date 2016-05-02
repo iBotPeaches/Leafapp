@@ -80,6 +80,7 @@ class updateRanking extends Job implements ShouldQueue
                 Ranking::where('playlist_id', $this->playlist->id)
                     ->where('season_id', $this->season->id)
                     ->where('rank', $leaderboard->rank)
+                    ->where('account_id', '!=', $account->id)
                     ->delete();
             }
             else
