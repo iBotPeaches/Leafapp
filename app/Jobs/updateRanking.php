@@ -81,6 +81,7 @@ class updateRanking extends Job implements ShouldQueue
                     ->where('season_id', $this->season->id)
                     ->where('rank', $leaderboard->rank)
                     ->where('account_id', '!=', $account->id)
+                    ->where('csr', '!=', $leaderboard->csr->csr)
                     ->delete();
             }
             else
