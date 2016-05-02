@@ -102,11 +102,16 @@ class Season extends Model {
      */
     public function isUpdateNeeded()
     {
+        if ($this->forceUpdate)
+        {
+            return true;
+        }
+        
         $end = $this->endDate;
         $start = $this->startDate;
         $updated = $this->updated_at;
         
-        if ((($end->isPast() && $updated->gt($end)) || $start->isFuture()) || ! $this->forceUpdate)
+        if (($end->isPast() && $updated->gt($end)) || $start->isFuture())
         {
             return false;
         }

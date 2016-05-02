@@ -82,6 +82,7 @@ class UpdateFromPanda extends Command
                     
                     if ($mSeason->endDate != $old_future)
                     {
+                        $this->info('This endDate has changed so forcing an update of this Seasons playlists');
                         $mSeason->forceUpdate = true;
                     }
                     
