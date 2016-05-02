@@ -106,7 +106,7 @@ class Season extends Model {
         $start = $this->startDate;
         $updated = $this->updated_at;
         
-        if ((($end->isPast() && $updated->gt($end)) || $start->isFuture()) && ! $this->forceUpdate)
+        if ((($end->isPast() && $updated->gt($end)) || $start->isFuture()) || ! $this->forceUpdate)
         {
             return false;
         }
