@@ -61,6 +61,7 @@ class UpdateFromPanda extends Command
             }
 
             $client->setPath('seasons');
+            $client->setCache(0);
             $seasonCollection = new SeasonCollection($client->request());
 
             $seasonCollection->each(function($season) use ($client)
@@ -93,7 +94,7 @@ class UpdateFromPanda extends Command
                             {
                                 $this->info('Downloading leaderboard for ' . $mSeason->name . " (" . $mPlaylist->name . ")");
                                 $client->setPath("leaderboard/" . $mSeason->contentId . "/" . $mPlaylist->contentId);
-                                $client->setCache(5);
+                                $client->setCache(1);
 
                                 $leaderboardCollection = new LeaderboardCollection($client->request());
                                 $this->dispatch(new updateRanking($leaderboardCollection, $mSeason, $mPlaylist));

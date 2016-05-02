@@ -35,9 +35,11 @@ class updateSeason extends Job implements ShouldQueue
     {
         try
         {
+            /** @var $season SeasonModel */
             $season = SeasonModel::where('contentId', $this->season->contentId)->firstOrFail();
             $season->endDate = $this->season->getRawProperty('end_date');
             $season->isActive = $this->season->isActive;
+            $season->name = $this->season->name;
             $season->save();
         }
         catch (ModelNotFoundException $ex)
