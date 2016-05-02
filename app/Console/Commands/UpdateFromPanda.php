@@ -70,8 +70,21 @@ class UpdateFromPanda extends Command
                 if ($season->contentId != "Nonseasonal")
                 {
                     $this->info('Dispatching update for ' . $season->name);
+                    
+                    /** @var $mSeason SeasonModel */
+                    $mSeason = SeasonModel::where('contentId', $season->contentId)->first();
+                    $old_future = $mSeason->endDate;
+                    
+                    // Now trigger a playlist update, then re-load the model with a query call.
+                    // Hacky - rewrite
                     $this->dispatch(new updateSeason($season));
-
+                    $mSeason = SeasonModel::where('contentId', $season->contentId)->first();
+                    
+                    if ($mSeason->endDate != $old_future)
+                    {
+                        $mSeason->forceUpdate = true;
+                    }
+                    
                     foreach ($season->playlists as $playlist)
                     {
                         if ($playlist->isRanked && $playlist->isActive)
@@ -80,10 +93,7 @@ class UpdateFromPanda extends Command
                             $this->dispatch(new updatePlaylist($playlist));
 
                             /** @var $mPlaylist PlaylistModel */
-                            /** @var $mSeason SeasonModel */
                             $mPlaylist = PlaylistModel::where('contentId', $playlist->contentId)->first();
-                            $mSeason = SeasonModel::where('contentId', $season->contentId)->first();
-
                             $this->insertPlaylistRelation($mPlaylist, $mSeason);
 
                             $ranks = Ranking::where('season_id', $mSeason->id)

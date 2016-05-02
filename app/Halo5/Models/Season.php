@@ -38,6 +38,11 @@ class Season extends Model {
      */
     protected $dates = ['startDate', 'endDate'];
 
+    /**
+     * @var bool
+     */
+    public $forceUpdate = false;
+    
     public static function boot()
     {
         parent::boot();
@@ -101,7 +106,7 @@ class Season extends Model {
         $start = $this->startDate;
         $updated = $this->updated_at;
         
-        if (($end->isPast() && $updated->gt($end)) || $start->isFuture())
+        if ((($end->isPast() && $updated->gt($end)) || $start->isFuture()) && ! $this->forceUpdate)
         {
             return false;
         }
