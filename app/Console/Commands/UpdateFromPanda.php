@@ -73,7 +73,7 @@ class UpdateFromPanda extends Command
 
                     foreach ($season->playlists as $playlist)
                     {
-                        if ($playlist->isRanked)
+                        if ($playlist->isRanked && $playlist->isActive)
                         {
                             $this->info('Dispatching update for playlist: ' . $playlist->name);
                             $this->dispatch(new updatePlaylist($playlist));
