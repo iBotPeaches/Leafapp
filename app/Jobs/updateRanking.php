@@ -75,6 +75,12 @@ class updateRanking extends Job implements ShouldQueue
                 $record->tier = $leaderboard->csr->tier;
                 $record->csr = $leaderboard->csr->csr;
                 $record->save();
+                
+                // delete the record that caused this one to exist.
+                Ranking::where('playlist_id', $this->playlist->id)
+                    ->where('season_id', $this->season->id)
+                    ->where('rank', $leaderboard->rank)
+                    ->delete();
             }
             else
             {
