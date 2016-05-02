@@ -55,6 +55,6 @@ class Account extends Model {
 
     public function rankings()
     {
-        return $this->hasMany('App\Halo5\Models\Ranking', 'account_id', 'id');
+        return $this->hasMany('App\Halo5\Models\Ranking', 'account_id', 'id')->orderBy('created_at');
     }
 }
