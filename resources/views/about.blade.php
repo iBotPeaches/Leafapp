@@ -10,6 +10,15 @@
                 <div class="ui black segment">
                     <div class="ui header">The Changelog</div>
                     <ul>
+                        <li>v1.2.1 - 7am EST - 5/3/2016</li>
+                        <ul>
+                            <li>Fix when tie occurs on CSR</li>
+                            <li>Handle seasons that have no name</li>
+                            <li>Fix playlists missing leaderboards</li>
+                            <li>Fix showing internal playlists</li>
+                            <li>Fix n+1 problem on leaderboard</li>
+                        </ul>
+                        <br />
                         <li>v1.2.0 - 10pm EST - 4/24/2016</li>
                         <ul>
                             <li>Database Storage vs redis</li>

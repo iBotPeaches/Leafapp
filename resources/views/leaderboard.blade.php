@@ -11,6 +11,7 @@
 @stop
 
 @section('content')
+    <!-- SeasonId - <?= $season->contentId; ?> | playlistId - <?= $playlist->contentId; ?> -->
     <div class="ui container">
         <div class="ui stackable grid">
             <div class="three wide column">

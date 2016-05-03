@@ -12,6 +12,11 @@ class LeaderboardCollection extends Collection
 {
     public function __construct($response)
     {
+        if (! isset($response['leaderboard']))
+        {
+            throw new LeaderboardNotFoundException($response['message']);
+        }
+        
         $items = [];
         foreach ($response['leaderboard'] as $result)
         {
@@ -21,3 +26,5 @@ class LeaderboardCollection extends Collection
         parent::__construct($items);
     }
 }
+
+class LeaderboardNotFoundException extends \Exception{};

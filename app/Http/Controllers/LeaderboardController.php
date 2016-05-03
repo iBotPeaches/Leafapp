@@ -34,7 +34,7 @@ class LeaderboardController extends Controller
         return view('leaderboard', [
             'season' => $season,
             'playlist' => $playlist,
-            'rankings' => $playlist->rankings()->with('account', 'csrr')->paginate(50),
+            'rankings' => $playlist->rankings()->with('season', 'account', 'csrr')->paginate(50),
             'title' => $season->name . ": " . $playlist->name,
             'description' => "Leaderboard of Halo 5 - " . $season->name . ": " . $playlist->name
         ]);

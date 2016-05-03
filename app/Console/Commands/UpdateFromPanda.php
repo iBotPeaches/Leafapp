@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Halo5\Definitions\Season;
 use App\Halo5\LeaderboardCollection;
+use App\Halo5\LeaderboardNotFoundException;
 use App\Halo5\Models\Ranking;
 use App\Halo5\Models\SeasonPlaylist;
 use App\Halo5\SeasonCollection;
@@ -73,14 +74,17 @@ class UpdateFromPanda extends Command
                     
                     /** @var $mSeason SeasonModel */
                     $mSeason = SeasonModel::where('contentId', $season->contentId)->first();
-                    $old_future = $mSeason->endDate;
+                    if ($mSeason != null)
+                    {
+                        $old_future = $mSeason->endDate;
+                    }
                     
                     // Now trigger a playlist update, then re-load the model with a query call.
                     // Hacky - rewrite
                     $this->dispatch(new updateSeason($season));
                     $mSeason = SeasonModel::where('contentId', $season->contentId)->first();
                     
-                    if ($mSeason->endDate != $old_future)
+                    if (isset($old_future) && $mSeason->endDate != $old_future)
                     {
                         $this->info('This endDate has changed so forcing an update of this Seasons playlists');
                         $mSeason->forceUpdate = true;
@@ -88,7 +92,7 @@ class UpdateFromPanda extends Command
                     
                     foreach ($season->playlists as $playlist)
                     {
-                        if ($playlist->isRanked && $playlist->isActive)
+                        if ($playlist->isRanked)
                         {
                             $this->info('Dispatching update for playlist: ' . $playlist->name);
                             $this->dispatch(new updatePlaylist($playlist));
@@ -101,14 +105,24 @@ class UpdateFromPanda extends Command
                                 ->where('playlist_id', $mPlaylist->id)
                                 ->count();
 
+                            $this->info('Found ' . $ranks . ' records for the playlist.');
+
                             if ($ranks == 0 || $mSeason->isUpdateNeeded())
                             {
                                 $this->info('Downloading leaderboard for ' . $mSeason->name . " (" . $mPlaylist->name . ")");
                                 $client->setPath("leaderboard/" . $mSeason->contentId . "/" . $mPlaylist->contentId);
                                 $client->setCache(1);
 
-                                $leaderboardCollection = new LeaderboardCollection($client->request());
-                                $this->dispatch(new updateRanking($leaderboardCollection, $mSeason, $mPlaylist));
+                                try
+                                {
+                                    $leaderboardCollection = new LeaderboardCollection($client->request());
+                                    $this->dispatch(new updateRanking($leaderboardCollection, $mSeason, $mPlaylist));
+                                }
+                                catch (LeaderboardNotFoundException $e)
+                                {
+                                    $this->error($e->getMessage());
+                                    $this->error($mSeason->name . " (" . $mPlaylist->name . ") was skipped due to not having records.");
+                                }
                             }
                             else
                             {
