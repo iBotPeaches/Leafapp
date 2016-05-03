@@ -24,7 +24,8 @@ class HistoryCollection extends Collection
 
         usort($items, function ($a, $b)
         {
-            return $a['season']['id'] - $b['season']['id'];
+            // These are Carbon objects
+            return $a['season']['startDate']->lt($b['season']['startDate']);
         });
 
         parent::__construct($items);
