@@ -29,11 +29,16 @@
                         <div class="ui middle aligned selection list">
                             <? foreach ($season['playlists'] as $rank): ?>
                                 <div class="item">
+                                    <? if (! $rank->playlist->isRanked): ?>
+                                        <div class="right floated content">
+                                            <span class="ui blue label">Social</span>
+                                        </div>
+                                    <? endif; ?>
                                     <img class="ui avatar image" src="<?= $rank->image(); ?>" />
                                     <div class="content">
                                         <div class="header">
                                             <?= $rank->rank; ?> <?= $rank->csrr->name; ?> in <strong><?= $rank->playlist->name; ?></strong>
-                                            with a CSR of <strong><?= number_format($rank->csr); ?></strong>.
+                                            with a CSR of <span class="ui label"><?= number_format($rank->csr); ?></span>
                                         </div>
                                     </div>
                                 </div>

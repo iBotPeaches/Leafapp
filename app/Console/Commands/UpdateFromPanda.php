@@ -89,46 +89,45 @@ class UpdateFromPanda extends Command
                         $this->info('This endDate has changed so forcing an update of this Seasons playlists');
                         $mSeason->forceUpdate = true;
                     }
-                    
+
                     foreach ($season->playlists as $playlist)
                     {
-                        if ($playlist->isRanked)
+
+                        $this->info('Dispatching update for playlist: ' . $playlist->name);
+                        $this->dispatch(new updatePlaylist($playlist));
+
+                        /** @var $mPlaylist PlaylistModel */
+                        $mPlaylist = PlaylistModel::where('contentId', $playlist->contentId)->first();
+                        $this->insertPlaylistRelation($mPlaylist, $mSeason);
+
+                        $ranks = Ranking::where('season_id', $mSeason->id)
+                            ->where('playlist_id', $mPlaylist->id)
+                            ->count();
+
+                        $this->info('Found ' . $ranks . ' records for the playlist.');
+
+                        if ($ranks == 0 || $mSeason->isUpdateNeeded())
                         {
-                            $this->info('Dispatching update for playlist: ' . $playlist->name);
-                            $this->dispatch(new updatePlaylist($playlist));
+                            $this->info('Downloading leaderboard for ' . $mSeason->name . " (" . $mPlaylist->name . ")");
+                            $client->setPath("leaderboard/" . $mSeason->contentId . "/" . $mPlaylist->contentId);
+                            $client->setCache(1);
 
-                            /** @var $mPlaylist PlaylistModel */
-                            $mPlaylist = PlaylistModel::where('contentId', $playlist->contentId)->first();
-                            $this->insertPlaylistRelation($mPlaylist, $mSeason);
-
-                            $ranks = Ranking::where('season_id', $mSeason->id)
-                                ->where('playlist_id', $mPlaylist->id)
-                                ->count();
-
-                            $this->info('Found ' . $ranks . ' records for the playlist.');
-
-                            if ($ranks == 0 || $mSeason->isUpdateNeeded())
+                            try
                             {
-                                $this->info('Downloading leaderboard for ' . $mSeason->name . " (" . $mPlaylist->name . ")");
-                                $client->setPath("leaderboard/" . $mSeason->contentId . "/" . $mPlaylist->contentId);
-                                $client->setCache(1);
-
-                                try
-                                {
-                                    $leaderboardCollection = new LeaderboardCollection($client->request());
-                                    $this->dispatch(new updateRanking($leaderboardCollection, $mSeason, $mPlaylist));
-                                }
-                                catch (LeaderboardNotFoundException $e)
-                                {
-                                    $this->error($e->getMessage());
-                                    $this->error($mSeason->name . " (" . $mPlaylist->name . ") was skipped due to not having records.");
-                                }
+                                $leaderboardCollection = new LeaderboardCollection($client->request());
+                                $this->dispatch(new updateRanking($leaderboardCollection, $mSeason, $mPlaylist));
                             }
-                            else
+                            catch (LeaderboardNotFoundException $e)
                             {
-                                $this->info('Update skipped as not needed for ' . $mSeason->name . " (" . $mPlaylist->name . ")");
+                                $this->error($e->getMessage());
+                                $this->error($mSeason->name . " (" . $mPlaylist->name . ") was skipped due to not having records.");
                             }
                         }
+                        else
+                        {
+                            $this->info('Update skipped as not needed for ' . $mSeason->name . " (" . $mPlaylist->name . ")");
+                        }
+
                     }
                 }
             });

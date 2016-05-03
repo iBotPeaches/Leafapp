@@ -14,9 +14,14 @@ class LeaderboardController extends Controller
      */
     public function getLeaderboardRedirect(Season $season)
     {
+        $playlist = $season->playlists->first(function ($key, $value)
+        {
+            return $value->isVisible();
+        });
+
         return redirect()->route('leaderboard', [
             'season' => $season,
-            'playlist' => $season->playlists()->first()
+            'playlist' => $playlist
         ]);
     }
 

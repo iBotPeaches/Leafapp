@@ -10,6 +10,12 @@
                 <div class="ui black segment">
                     <div class="ui header">The Changelog</div>
                     <ul>
+                        <li>v1.2.2 - 10am EST - 5/3/2016</li>
+                        <ul>
+                            <li>Leaderboards exist for some social playlists. wtf</li>
+                            <li>Fix profile to show Social/Ranked playlist.</li>
+                        </ul>
+                        <br />
                         <li>v1.2.1 - 7am EST - 5/3/2016</li>
                         <ul>
                             <li>Fix when tie occurs on CSR</li>
@@ -79,6 +85,14 @@
                             <div class="content">
                                 <div class="header">I placed higher than this says!</div>
                                 <div class="description">The stats are from the conclusion of the season, which would be the rank you had when that season ended.</div>
+                            </div>
+                        </span>
+                        <span class="item">
+                            <i class="help icon"></i>
+                            <div class="content">
+                                <div class="header">Why are social playlists shown?</div>
+                                <div class="description">By accident I accidentally requested leaderboards for one and was surprised data was returned. This means that while never
+                                visible in game, some social playlists have an associated CSR tracking and leaderboard (Preseason it seems). </div>
                             </div>
                         </span>
                     </div>

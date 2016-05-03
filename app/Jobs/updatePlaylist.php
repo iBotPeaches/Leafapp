@@ -17,6 +17,15 @@ class updatePlaylist extends Job implements ShouldQueue
     protected $playlist;
 
     /**
+     * Some playlists are internal, but set as isRanked.
+     * We can't rely on isActive, because some playlists in the past
+     * @var array
+     */
+    protected $ignoredPlaylists = [
+        'eef52f20-860c-4ec2-84df-dda8947668cb' // 2p Progression
+    ];
+    
+    /**
      * updatePlaylist constructor.
      * @param Playlist $playlist
      */
@@ -36,6 +45,7 @@ class updatePlaylist extends Job implements ShouldQueue
         {
             /** @var $playlist PlaylistModel */
             $playlist = PlaylistModel::where('contentId', $this->playlist->contentId)->firstOrFail();
+            $playlist->isRanked = $this->playlist->isRanked;
             $playlist->touch();
             $playlist->save();
         }
@@ -45,6 +55,7 @@ class updatePlaylist extends Job implements ShouldQueue
             $playlist->contentId = $this->playlist->contentId;
             $playlist->name = $this->playlist->name;
             $playlist->description = $this->playlist->description;
+            $playlist->isRanked = $this->playlist->isRanked;
             $playlist->save();
         }
     }

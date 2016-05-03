@@ -22,6 +22,11 @@ class HistoryCollection extends Collection
             $items[$result->season->id]['season'] = $result->season;
         }
 
+        usort($items, function ($a, $b)
+        {
+            return $a['season']['id'] - $b['season']['id'];
+        });
+
         parent::__construct($items);
     }
 }
