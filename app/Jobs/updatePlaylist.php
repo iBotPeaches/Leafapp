@@ -45,6 +45,7 @@ class updatePlaylist extends Job implements ShouldQueue
         {
             /** @var $playlist PlaylistModel */
             $playlist = PlaylistModel::where('contentId', $this->playlist->contentId)->firstOrFail();
+            $playlist->name = $this->playlist->name;
             $playlist->isRanked = $this->playlist->isRanked;
             $playlist->touch();
             $playlist->save();
