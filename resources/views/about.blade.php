@@ -10,6 +10,13 @@
                 <div class="ui black segment">
                     <div class="ui header">The Changelog</div>
                     <ul>
+                        <li>v1.3.0 - 8am EST - 6/6/2016</li>
+                        <ul>
+                            <li>Fixed leaderboard from having duplicates.</li>
+                            <li>Added StyleCI to enforce style guidelines.</li>
+                            <li>UI enhancements on leaderboard view.</li>
+                        </ul>
+                        <br />
                         <li>v1.2.2 - 10am EST - 5/3/2016</li>
                         <ul>
                             <li>Leaderboards exist for some social playlists. wtf</li>
