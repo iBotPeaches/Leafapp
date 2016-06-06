@@ -53,44 +53,67 @@ class updateRanking extends Job implements ShouldQueue
      */
     public function handle()
     {
+        $placements = $this->recordPreviousPlacements();
+        $this->deletePreviousRecords();
+
         /** @var $leaderboard Record */
         foreach ($this->leaderboard as $leaderboard)
         {
+            /** @var Account $account */
             $account = Account::firstOrCreate(['gamertag' => $leaderboard->gamertag]);
-            
-            /** @var Ranking $record */
-            $record = Ranking::where('playlist_id', $this->playlist->id)
-                ->where('season_id', $this->season->id)
-                ->where('account_id', $account->id)
-                ->first();
 
-            if ($record === null)
+            $record = new Ranking();
+            $record->playlist_id = $this->playlist->id;
+            $record->season_id = $this->season->id;
+            $record->account_id = $account->id;
+            $record->csr_id = $leaderboard->csr->designationId;
+            $record->rank = $leaderboard->rank;
+            $record->tier = $leaderboard->csr->tier;
+            $record->csr = $leaderboard->csr->csr;
+            
+            if (isset($placements[$account->id]))
             {
-                $record = new Ranking();
-                $record->playlist_id = $this->playlist->id;
-                $record->season_id = $this->season->id;
-                $record->account_id = $account->id;
-                $record->csr_id = $leaderboard->csr->designationId;
-                $record->rank = $leaderboard->rank;
-                $record->tier = $leaderboard->csr->tier;
-                $record->csr = $leaderboard->csr->csr;
-                $record->save();
-                
-                // delete the record that caused this one to exist.
-                Ranking::where('playlist_id', $this->playlist->id)
-                    ->where('season_id', $this->season->id)
-                    ->where('rank', $leaderboard->rank)
-                    ->where('account_id', '!=', $account->id)
-                    ->where('csr', '!=', $leaderboard->csr->csr)
-                    ->delete();
+                $record->lastCsr = $placements[$account->id]['csr'];
+                $record->lastRank = $placements[$account->id]['rank'];
             }
-            else
-            {
-                $record->rank = $leaderboard->rank;
-                $record->csr_id = $leaderboard->csr->designationId;
-                $record->csr = $leaderboard->csr->csr;
-                $record->save();
-            }
+            
+            $record->save();
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function recordPreviousPlacements()
+    {
+        $return = [];
+
+        /** @var Ranking[] $records */
+        $records = Ranking::where('playlist_id', $this->playlist->id)
+            ->where('season_id', $this->season->id)
+            ->get();
+
+        // Now with all records, we are going to dump them into account_id -> place array
+        // then when we insert the new leaderboard, we can reference this array for
+        // the previous place they got.
+        foreach ($records as $record)
+        {
+            $return[$record->account_id] = [
+                'csr' => $record->csr,
+                'rank' => $record->rank
+            ];
+        }
+
+        return $return;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function deletePreviousRecords()
+    {
+        return Ranking::where('playlist_id', $this->playlist->id)
+            ->where('season_id', $this->season->id)
+            ->delete();
     }
 }
