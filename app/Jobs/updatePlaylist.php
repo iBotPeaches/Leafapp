@@ -1,4 +1,6 @@
-<?php namespace App\Jobs;
+<?php
+
+namespace App\Jobs;
 
 use App\Halo5\Definitions\Playlist;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -18,13 +20,13 @@ class updatePlaylist extends Job implements ShouldQueue
 
     /**
      * Some playlists are internal, but set as isRanked.
-     * We can't rely on isActive, because some playlists in the past
+     * We can't rely on isActive, because some playlists in the past.
      * @var array
      */
     protected $ignoredPlaylists = [
-        'eef52f20-860c-4ec2-84df-dda8947668cb' // 2p Progression
+        'eef52f20-860c-4ec2-84df-dda8947668cb', // 2p Progression
     ];
-    
+
     /**
      * updatePlaylist constructor.
      * @param Playlist $playlist
@@ -35,23 +37,20 @@ class updatePlaylist extends Job implements ShouldQueue
     }
 
     /**
-     * Execute the job.we ha
+     * Execute the job.we ha.
      *
      * @return void
      */
     public function handle()
     {
-        try
-        {
+        try {
             /** @var $playlist PlaylistModel */
             $playlist = PlaylistModel::where('contentId', $this->playlist->contentId)->firstOrFail();
             $playlist->name = $this->playlist->name;
             $playlist->isRanked = $this->playlist->isRanked;
             $playlist->touch();
             $playlist->save();
-        }
-        catch (ModelNotFoundException $ex)
-        {
+        } catch (ModelNotFoundException $ex) {
             $playlist = new PlaylistModel();
             $playlist->contentId = $this->playlist->contentId;
             $playlist->name = $this->playlist->name;

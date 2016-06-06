@@ -1,16 +1,17 @@
-<?php namespace App\Halo5\Models;
+<?php
+
+namespace App\Halo5\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Account
- * @package App\Halo5\Models
- * @property integer $id
+ * Class Account.
+ * @property int $id
  * @property string $slug
  * @property string $gamertag
  */
-class Account extends Model {
-
+class Account extends Model
+{
     /**
      * The database table used by the model.
      *
@@ -24,7 +25,7 @@ class Account extends Model {
      * @var array
      */
     protected $guarded = ['id'];
-    
+
     /**
      * @var bool
      */
@@ -33,9 +34,8 @@ class Account extends Model {
     public static function boot()
     {
         parent::boot();
-        
-        static::creating(function ($account)
-        {
+
+        static::creating(function ($account) {
             $account->slug = str_slug($account->gamertag);
         });
     }

@@ -1,8 +1,5 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ApiControllerTest extends TestCase
 {
@@ -10,7 +7,7 @@ class ApiControllerTest extends TestCase
     {
         $client = new \App\Library\HaloClient('seasons', 0);
         $data = $client->request();
-        
+
         $this->assertTrue(is_array($data) && isset($data['error']) && $data['error'] == false);
     }
 

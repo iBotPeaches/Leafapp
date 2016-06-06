@@ -1,9 +1,9 @@
-<?php namespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
 
 use App\Halo5\HistoryCollection;
 use App\Halo5\Models\Account;
-
-use App\Http\Requests;
 
 class ProfileController extends Controller
 {
@@ -18,8 +18,8 @@ class ProfileController extends Controller
         return view('profile', [
             'account' => $account,
             'history' => new HistoryCollection($account->rankings),
-            'title' => 'Leaf - ' . $account->gamertag,
-            'description' => 'Leaf - Halo 5 Guardians Profile: ' . $account->gamertag
+            'title' => 'Leaf - '.$account->gamertag,
+            'description' => 'Leaf - Halo 5 Guardians Profile: '.$account->gamertag,
         ]);
     }
 }

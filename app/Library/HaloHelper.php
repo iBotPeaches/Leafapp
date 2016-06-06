@@ -1,4 +1,6 @@
-<?php namespace App\Library;
+<?php
+
+namespace App\Library;
 
 use App\Halo5\Definitions\Playlist;
 use App\Halo5\Definitions\Season;
@@ -14,14 +16,12 @@ class HaloHelper
      */
     public static function getSeason($seasons, $seasonId)
     {
-        foreach ($seasons as $season)
-        {
-            if ($season->contentId == $seasonId)
-            {
+        foreach ($seasons as $season) {
+            if ($season->contentId == $seasonId) {
                 return $season;
             }
         }
-        
+
         throw new \Exception('Season Not Found');
     }
 
@@ -32,11 +32,10 @@ class HaloHelper
      */
     public static function firstPlaylist($season)
     {
-        if (is_array($season->playlists))
-        {
+        if (is_array($season->playlists)) {
             return $season->playlists[0];
         }
-        
+
         throw new \Exception('Playlist not found');
     }
 
@@ -48,14 +47,12 @@ class HaloHelper
      */
     public static function getPlaylist($season, $playlistId)
     {
-        foreach ($season->playlists as $playlist)
-        {
-            if ($playlist->contentId == $playlistId)
-            {
+        foreach ($season->playlists as $playlist) {
+            if ($playlist->contentId == $playlistId) {
                 return $playlist;
             }
         }
-        
+
         throw new \Exception('Playlist not found.');
     }
 }

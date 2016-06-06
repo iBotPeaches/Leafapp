@@ -1,17 +1,18 @@
-<?php namespace App\Halo5\Definitions;
+<?php
+
+namespace App\Halo5\Definitions;
 
 use Carbon\Carbon;
 
 /**
- * Class Season
- * @package App\Halo5\Definitions
- * @property integer $id
+ * Class Season.
+ * @property int $id
  * @property string $contentId
  * @property string $name
  * @property Carbon $start_date
  * @property Carbon $end_date
- * @property boolean $isActive
- * 
+ * @property bool $isActive
+ *
  * @property Playlist[] $playlists
  */
 class Season extends Model
@@ -23,13 +24,12 @@ class Season extends Model
     public function __construct(array $properties)
     {
         $playlists = [];
-        foreach ($properties['playlists'] as $playlist)
-        {
+        foreach ($properties['playlists'] as $playlist) {
             $playlists[] = new Playlist($playlist);
         }
 
         $properties['playlists'] = $playlists;
-        
+
         parent::__construct($properties);
     }
 
@@ -50,7 +50,7 @@ class Season extends Model
     {
         return $value->format('M j o');
     }
-    
+
     /**
      * @param $value
      * @return Carbon

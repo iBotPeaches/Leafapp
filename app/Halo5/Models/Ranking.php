@@ -1,21 +1,22 @@
-<?php namespace App\Halo5\Models;
+<?php
+
+namespace App\Halo5\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Ranking
- * @package App\Halo5\Models
- * @property integer $id
- * @property integer $playlist_id
- * @property integer $season_id
- * @property integer $account_id
- * @property integer $csr_id
- * @property integer $rank
- * @property integer $lastRank
- * @property integer $tier
- * @property integer $csr
- * @property integer $lastCsr
+ * Class Ranking.
+ * @property int $id
+ * @property int $playlist_id
+ * @property int $season_id
+ * @property int $account_id
+ * @property int $csr_id
+ * @property int $rank
+ * @property int $lastRank
+ * @property int $tier
+ * @property int $csr
+ * @property int $lastCsr
  * @property Carbon $created_at
  * @property Carbon $updated_at
  *
@@ -24,8 +25,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property Account $account
  * @property Csr $csrr
  */
-class Ranking extends Model {
-
+class Ranking extends Model
+{
     /**
      * The database table used by the model.
      *
@@ -44,9 +45,8 @@ class Ranking extends Model {
     {
         parent::boot();
 
-        static::updating(function ($record)
-        {
-            /** @var Ranking $record */
+        static::updating(function ($record) {
+            /* @var Ranking $record */
             $record->lastRank = $record->getOriginal('rank');
             $record->lastCsr = $record->getOriginal('csr');
         });
@@ -89,7 +89,7 @@ class Ranking extends Model {
     {
         return $this->hasOne('App\Halo5\Models\Csr', 'id', 'csr_id');
     }
-    
+
     public function image()
     {
         return $this->csrr->tiers[$this->tier];
@@ -99,24 +99,21 @@ class Ranking extends Model {
     {
         return $this->color() != '';
     }
-    
+
     public function arrow()
     {
-        if (! $this->season->isActive)
-        {
+        if (! $this->season->isActive) {
             return '';
         }
 
-        if ($this->isHigher())
-        {
+        if ($this->isHigher()) {
             return 'long arrow up';
         }
 
-        if ($this->isLower())
-        {
+        if ($this->isLower()) {
             return 'long arrow down';
         }
-        
+
         return '';
     }
 
@@ -126,18 +123,15 @@ class Ranking extends Model {
      */
     public function color($label = false)
     {
-        if (! $this->season->isActive)
-        {
+        if (! $this->season->isActive) {
             return '';
         }
 
-        if ($this->isHigher())
-        {
+        if ($this->isHigher()) {
             return $label ? 'green' : 'positive';
         }
 
-        if ($this->isLower())
-        {
+        if ($this->isLower()) {
             return $label ? 'red' : 'negative';
         }
 
@@ -146,14 +140,12 @@ class Ranking extends Model {
 
     public function buildMessage()
     {
-        if ($this->isHigher())
-        {
-            return $this->account->gamertag . ' went up from ' . $this->lastRank . ' place to ' . $this->rank . ' place.';
+        if ($this->isHigher()) {
+            return $this->account->gamertag.' went up from '.$this->lastRank.' place to '.$this->rank.' place.';
         }
 
-        if ($this->isLower())
-        {
-            return $this->account->gamertag . ' dropped from ' . $this->lastRank . ' place to ' . $this->rank . ' place.';
+        if ($this->isLower()) {
+            return $this->account->gamertag.' dropped from '.$this->lastRank.' place to '.$this->rank.' place.';
         }
     }
 
@@ -174,18 +166,19 @@ class Ranking extends Model {
     }
 
     /**
-     * Makes number Ordinal (suffix)
-     * 
+     * Makes number Ordinal (suffix).
+     *
      * @param $number
      * @url http://stackoverflow.com/a/3110033/455008
      * @return string
      */
     private function _getPrettyRank($number)
     {
-        $ends = array('th','st','nd','rd','th','th','th','th','th','th');
-        if ((($number % 100) >= 11) && (($number % 100) <= 13))
-            return $number. 'th';
-        else
-            return $number. $ends[$number % 10];
+        $ends = ['th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th'];
+        if ((($number % 100) >= 11) && (($number % 100) <= 13)) {
+            return $number.'th';
+        } else {
+            return $number.$ends[$number % 10];
+        }
     }
 }

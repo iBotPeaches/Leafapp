@@ -34,8 +34,7 @@ class updateCsr extends Job implements ShouldQueue
     {
         $record = Csr::where('id', $this->csr['designationId'])->first();
 
-        if ($record == null)
-        {
+        if ($record == null) {
             $csr = new Csr();
             $csr->id = $this->csr['designationId'];
             $csr->name = $this->csr['name'];

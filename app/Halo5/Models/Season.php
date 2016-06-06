@@ -1,24 +1,25 @@
-<?php namespace App\Halo5\Models;
+<?php
+
+namespace App\Halo5\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Season
- * @package App\Halo5\Models
- * @property integer $id
+ * Class Season.
+ * @property int $id
  * @property string $contentId
  * @property string $name
  * @property string $slug
  * @property Carbon $startDate
  * @property Carbon $endDate
- * @property boolean $isActive
+ * @property bool $isActive
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property Playlist[] $playlists
  */
-class Season extends Model {
-
+class Season extends Model
+{
     /**
      * The database table used by the model.
      *
@@ -42,13 +43,12 @@ class Season extends Model {
      * @var bool
      */
     public $forceUpdate = false;
-    
+
     public static function boot()
     {
         parent::boot();
 
-        static::creating(function ($season)
-        {
+        static::creating(function ($season) {
             $season->slug = str_slug($season->name);
         });
     }
@@ -85,15 +85,11 @@ class Season extends Model {
      */
     public function getCorrectPlaylistViaSlug($slug)
     {
-        foreach ($this->playlists as $playlist)
-        {
-            if ($slug == $playlist->slug)
-            {
+        foreach ($this->playlists as $playlist) {
+            if ($slug == $playlist->slug) {
                 return $playlist;
             }
         }
-        
-        return null;
     }
 
     /**
@@ -102,20 +98,18 @@ class Season extends Model {
      */
     public function isUpdateNeeded()
     {
-        if ($this->forceUpdate)
-        {
+        if ($this->forceUpdate) {
             return true;
         }
-        
+
         $end = $this->endDate;
         $start = $this->startDate;
         $updated = $this->updated_at;
-        
-        if (($end->isPast() && $updated->gt($end)) || $start->isFuture())
-        {
+
+        if (($end->isPast() && $updated->gt($end)) || $start->isFuture()) {
             return false;
         }
-        
+
         return true;
     }
 
@@ -125,6 +119,7 @@ class Season extends Model {
     public function isFuture()
     {
         $date = $this->startDate;
+
         return $date->isFuture();
     }
 }

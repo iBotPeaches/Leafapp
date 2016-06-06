@@ -1,11 +1,12 @@
-<?php namespace App\Halo5;
+<?php
+
+namespace App\Halo5;
 
 use App\Halo5\Models\Ranking;
 use Illuminate\Support\Collection;
 
 /**
- * Class HistoryCollection
- * @package App\Halo5
+ * Class HistoryCollection.
  */
 class HistoryCollection extends Collection
 {
@@ -16,14 +17,12 @@ class HistoryCollection extends Collection
     public function __construct($response)
     {
         $items = [];
-        foreach ($response as $result)
-        {
+        foreach ($response as $result) {
             $items[$result->season->id]['playlists'][] = $result;
             $items[$result->season->id]['season'] = $result->season;
         }
 
-        usort($items, function ($a, $b)
-        {
+        usort($items, function ($a, $b) {
             // These are Carbon objects
             return $a['season']['startDate']->lt($b['season']['startDate']);
         });

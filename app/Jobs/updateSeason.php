@@ -1,4 +1,6 @@
-<?php namespace App\Jobs;
+<?php
+
+namespace App\Jobs;
 
 use App\Halo5\Definitions\Season;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -33,17 +35,14 @@ class updateSeason extends Job implements ShouldQueue
      */
     public function handle()
     {
-        try
-        {
+        try {
             /** @var $season SeasonModel */
             $season = SeasonModel::where('contentId', $this->season->contentId)->firstOrFail();
             $season->endDate = $this->season->getRawProperty('end_date');
             $season->isActive = $this->season->isActive;
             $season->name = $this->season->name;
             $season->save();
-        }
-        catch (ModelNotFoundException $ex)
-        {
+        } catch (ModelNotFoundException $ex) {
             $season = new SeasonModel();
             $season->contentId = $this->season->contentId;
             $season->name = $this->season->name;

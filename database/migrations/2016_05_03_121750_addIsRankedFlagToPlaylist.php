@@ -12,8 +12,7 @@ class AddIsRankedFlagToPlaylist extends Migration
      */
     public function up()
     {
-        Schema::table('h5_playlists', function (Blueprint $table)
-        {
+        Schema::table('h5_playlists', function (Blueprint $table) {
             $table->boolean('isRanked')->default(false);
         });
     }
@@ -25,8 +24,7 @@ class AddIsRankedFlagToPlaylist extends Migration
      */
     public function down()
     {
-        Schema::table('h5_playlists', function (Blueprint $table)
-        {
+        Schema::table('h5_playlists', function (Blueprint $table) {
             $table->dropColumn('isRanked');
         });
     }
