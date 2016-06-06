@@ -27,7 +27,9 @@
                 </span>
             </h4>
         </td>
-        <td><i class="icon <?= $record->arrow(); ?>"></i><?= number_format($record->csr); ?></td>
+        <td>
+            <?= number_format($record->csr); ?><i class="icon <?= $record->arrow(); ?>"></i>
+        </td>
     </tr>
     <? endforeach; ?>
     </tbody>
