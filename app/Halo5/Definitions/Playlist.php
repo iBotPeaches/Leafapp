@@ -1,15 +1,16 @@
-<?php namespace App\Halo5\Definitions;
+<?php
+
+namespace App\Halo5\Definitions;
 
 /**
- * Class Playlist
- * @package App\Halo5\Definitions
- * @property integer $id
+ * Class Playlist.
+ * @property int $id
  * @property string $contentId
  * @property string $name
  * @property string $description
- * @property boolean $isRanked
+ * @property bool $isRanked
  * @property string $imageUrl
- * @property boolean $isActive
+ * @property bool $isActive
  * @property string $gameMode
  * @property array $pivot
  */

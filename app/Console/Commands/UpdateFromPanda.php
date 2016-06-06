@@ -51,13 +51,11 @@ class UpdateFromPanda extends Command
      */
     public function handle()
     {
-        \DB::transaction(function() 
-        {
+        \DB::transaction(function () {
             $client = new HaloClient('csrs', 5);
             $csrs = $client->request()['csrs'];
 
-            foreach ($csrs as $csr)
-            {
+            foreach ($csrs as $csr) {
                 $this->dispatch(new updateCsr($csr));
             }
 
@@ -65,34 +63,29 @@ class UpdateFromPanda extends Command
             $client->setCache(0);
             $seasonCollection = new SeasonCollection($client->request());
 
-            $seasonCollection->each(function($season) use ($client)
-            {
+            $seasonCollection->each(function ($season) use ($client) {
                 /** @var $season Season */
-                if ($season->contentId != "Nonseasonal")
-                {
-                    $this->info('Dispatching update for ' . $season->name);
-                    
+                if ($season->contentId != 'Nonseasonal') {
+                    $this->info('Dispatching update for '.$season->name);
+
                     /** @var $mSeason SeasonModel */
                     $mSeason = SeasonModel::where('contentId', $season->contentId)->first();
-                    if ($mSeason != null)
-                    {
+                    if ($mSeason != null) {
                         $old_future = $mSeason->endDate;
                     }
-                    
+
                     // Now trigger a playlist update, then re-load the model with a query call.
                     // Hacky - rewrite
                     $this->dispatch(new updateSeason($season));
                     $mSeason = SeasonModel::where('contentId', $season->contentId)->first();
-                    
-                    if (isset($old_future) && $mSeason->endDate != $old_future)
-                    {
+
+                    if (isset($old_future) && $mSeason->endDate != $old_future) {
                         $this->info('This endDate has changed so forcing an update of this Seasons playlists');
                         $mSeason->forceUpdate = true;
                     }
 
-                    foreach ($season->playlists as $playlist)
-                    {
-                        $this->info('Dispatching update for playlist: ' . $playlist->name);
+                    foreach ($season->playlists as $playlist) {
+                        $this->info('Dispatching update for playlist: '.$playlist->name);
                         $this->dispatch(new updatePlaylist($playlist));
 
                         /** @var $mPlaylist PlaylistModel */
@@ -103,35 +96,28 @@ class UpdateFromPanda extends Command
                             ->where('playlist_id', $mPlaylist->id)
                             ->count();
 
-                        $this->info('Found ' . $ranks . ' records for the playlist.');
+                        $this->info('Found '.$ranks.' records for the playlist.');
 
-                        if ($ranks == 0 || $mSeason->isUpdateNeeded())
-                        {
-                            $this->info('Downloading leaderboard for ' . $mSeason->name . " (" . $mPlaylist->name . ")");
-                            $client->setPath("leaderboard/" . $mSeason->contentId . "/" . $mPlaylist->contentId);
+                        if ($ranks == 0 || $mSeason->isUpdateNeeded()) {
+                            $this->info('Downloading leaderboard for '.$mSeason->name.' ('.$mPlaylist->name.')');
+                            $client->setPath('leaderboard/'.$mSeason->contentId.'/'.$mPlaylist->contentId);
                             $client->setCache(1);
 
-                            try
-                            {
-                                $this->info("Downloading via " . $client->url);
+                            try {
+                                $this->info('Downloading via '.$client->url);
                                 $leaderboardCollection = new LeaderboardCollection($client->request());
                                 $this->dispatch(new updateRanking($leaderboardCollection, $mSeason, $mPlaylist));
-                            }
-                            catch (LeaderboardNotFoundException $e)
-                            {
+                            } catch (LeaderboardNotFoundException $e) {
                                 $this->error($e->getMessage());
-                                $this->error($mSeason->name . " (" . $mPlaylist->name . ") was skipped due to not having records.");
+                                $this->error($mSeason->name.' ('.$mPlaylist->name.') was skipped due to not having records.');
                             }
+                        } else {
+                            $this->info('Update skipped as not needed for '.$mSeason->name.' ('.$mPlaylist->name.')');
                         }
-                        else
-                        {
-                            $this->info('Update skipped as not needed for ' . $mSeason->name . " (" . $mPlaylist->name . ")");
-                        }
-
                     }
                 }
             });
-            
+
             return true;
         });
     }
@@ -145,9 +131,8 @@ class UpdateFromPanda extends Command
         $record = SeasonPlaylist::where('playlist_id', $playlist->id)
             ->where('season_id', $season->id)
             ->first();
-        
-        if ($record == null)
-        {
+
+        if ($record == null) {
             $record = new SeasonPlaylist();
             $record->playlist_id = $playlist->id;
             $record->season_id = $season->id;

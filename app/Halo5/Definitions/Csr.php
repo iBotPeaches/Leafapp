@@ -1,13 +1,14 @@
-<?php namespace App\Halo5\Definitions;
+<?php
+
+namespace App\Halo5\Definitions;
 
 use App\Library\HaloClient;
 
 /**
- * Class Csr
- * @package App\Halo5\Definitions
- * @property integer $tier
- * @property integer $designationId
- * @property integer $csr
+ * Class Csr.
+ * @property int $tier
+ * @property int $designationId
+ * @property int $csr
  */
 class Csr extends Model
 {
@@ -18,7 +19,7 @@ class Csr extends Model
     public function __construct($properties)
     {
         // @todo remove this after the new DB thing is in place
-        $client = new HaloClient("csrs", -1);
+        $client = new HaloClient('csrs', -1);
         $csr = $client->request();
 
         parent::__construct($properties, $csr['csrs'][$properties['designationId']]);

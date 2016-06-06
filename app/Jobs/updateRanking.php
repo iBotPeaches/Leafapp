@@ -57,8 +57,7 @@ class updateRanking extends Job implements ShouldQueue
         $this->deletePreviousRecords();
 
         /** @var $leaderboard Record */
-        foreach ($this->leaderboard as $leaderboard)
-        {
+        foreach ($this->leaderboard as $leaderboard) {
             /** @var Account $account */
             $account = Account::firstOrCreate(['gamertag' => $leaderboard->gamertag]);
 
@@ -70,13 +69,12 @@ class updateRanking extends Job implements ShouldQueue
             $record->rank = $leaderboard->rank;
             $record->tier = $leaderboard->csr->tier;
             $record->csr = $leaderboard->csr->csr;
-            
-            if (isset($placements[$account->id]))
-            {
+
+            if (isset($placements[$account->id])) {
                 $record->lastCsr = $placements[$account->id]['csr'];
                 $record->lastRank = $placements[$account->id]['rank'];
             }
-            
+
             $record->save();
         }
     }
@@ -96,11 +94,10 @@ class updateRanking extends Job implements ShouldQueue
         // Now with all records, we are going to dump them into account_id -> place array
         // then when we insert the new leaderboard, we can reference this array for
         // the previous place they got.
-        foreach ($records as $record)
-        {
+        foreach ($records as $record) {
             $return[$record->account_id] = [
                 'csr' => $record->csr,
-                'rank' => $record->rank
+                'rank' => $record->rank,
             ];
         }
 

@@ -1,16 +1,17 @@
-<?php namespace App\Halo5\Models;
+<?php
+
+namespace App\Halo5\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Csr
- * @package App\Halo5\Models
- * @property integer $id
+ * Class Csr.
+ * @property int $id
  * @property string $name
  * @property array $tiers
  */
-class Csr extends Model {
-
+class Csr extends Model
+{
     /**
      * The database table used by the model.
      *
@@ -48,12 +49,12 @@ class Csr extends Model {
     {
         $this->attributes['tiers'] = json_encode($value);
     }
-    
+
     public function getTiersAttribute($value)
     {
         return json_decode($value, true);
     }
-    
+
     //---------------------------------------------------------------------------------
     // Public Methods
     //---------------------------------------------------------------------------------

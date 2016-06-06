@@ -12,31 +12,31 @@
 */
 
 Route::get('/sitemap/profiles', [
-    'as' => 'sitemap.profiles', 'uses' => 'SitemapController@getProfiles'
+    'as' => 'sitemap.profiles', 'uses' => 'SitemapController@getProfiles',
 ]);
 
 Route::get('/sitemap/playlists', [
-    'as' => 'sitemap.playlists', 'uses' => 'SitemapController@getPlaylists'
+    'as' => 'sitemap.playlists', 'uses' => 'SitemapController@getPlaylists',
 ]);
 
 Route::get('/sitemap/extras', [
-    'as' => 'sitemap.extras', 'uses' => 'SitemapController@getExtras'
+    'as' => 'sitemap.extras', 'uses' => 'SitemapController@getExtras',
 ]);
 
 Route::get('/sitemap', [
-    'as' => 'sitemap.index', 'uses' => 'SitemapController@getIndex'
+    'as' => 'sitemap.index', 'uses' => 'SitemapController@getIndex',
 ]);
 
 Route::get('/profile/{account}', [
-    'as' => 'profile', 'uses' => 'ProfileController@getProfile'
+    'as' => 'profile', 'uses' => 'ProfileController@getProfile',
 ]);
 
 Route::get('/leaderboard/{season}', [
-    'as' => 'leaderboard.index', 'uses' => 'LeaderboardController@getLeaderboardRedirect'
+    'as' => 'leaderboard.index', 'uses' => 'LeaderboardController@getLeaderboardRedirect',
 ]);
 
 Route::get('/leaderboard/{season}/{playlist}', [
-    'as' => 'leaderboard', 'uses' => 'LeaderboardController@getLeaderboard'
+    'as' => 'leaderboard', 'uses' => 'LeaderboardController@getLeaderboard',
 ]);
 
 Route::get('/about', ['as' => 'about', 'uses' => 'HomeController@getAbout']);

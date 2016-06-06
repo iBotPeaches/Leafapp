@@ -1,19 +1,20 @@
-<?php namespace App\Halo5\Models;
+<?php
+
+namespace App\Halo5\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class SeasonPlaylist
- * @package App\Halo5\Models
- * @property integer $id
- * @property integer $season_id
- * @property integer $playlist_id
- * 
+ * Class SeasonPlaylist.
+ * @property int $id
+ * @property int $season_id
+ * @property int $playlist_id
+ *
  * @property Season $season
  * @property Playlist $playlist
  */
-class SeasonPlaylist extends Model {
-
+class SeasonPlaylist extends Model
+{
     /**
      * The database table used by the model.
      *
@@ -29,7 +30,7 @@ class SeasonPlaylist extends Model {
     //---------------------------------------------------------------------------------
     // Accessors & Mutators
     //---------------------------------------------------------------------------------
-    
+
     //---------------------------------------------------------------------------------
     // Public Methods
     //---------------------------------------------------------------------------------

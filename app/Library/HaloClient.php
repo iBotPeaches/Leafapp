@@ -1,4 +1,6 @@
-<?php namespace App\Library;
+<?php
+
+namespace App\Library;
 
 use GuzzleHttp;
 
@@ -36,7 +38,7 @@ class HaloClient
      */
     public function setPath($path)
     {
-        $this->url = config('leaf.endpoint') . $path;
+        $this->url = config('leaf.endpoint').$path;
     }
 
     /**
@@ -54,25 +56,22 @@ class HaloClient
     public function request()
     {
         $sum = md5($this->url);
-        
-        if ($this->cache != 0 && \Cache::has($sum))
-        {
+
+        if ($this->cache != 0 && \Cache::has($sum)) {
             return \Cache::get($sum);
         }
-        
+
         $res = $this->client->request('GET', $this->url);
 
-        if ($res->getStatusCode() != 200)
-        {
+        if ($res->getStatusCode() != 200) {
             throw new \Exception('API Offline or invalid.');
         }
-        
-        if ($this->cache != 0)
-        {
+
+        if ($this->cache != 0) {
             $operation = ($this->cache === -1) ? 'forever' : 'put';
             \Cache::$operation($sum, json_decode($res->getBody(), true, 512, JSON_BIGINT_AS_STRING), $this->cache);
         }
-        
+
         return json_decode($res->getBody(), true, 512, JSON_BIGINT_AS_STRING);
     }
 }

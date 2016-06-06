@@ -1,10 +1,11 @@
-<?php namespace App\Halo5\Definitions;
+<?php
+
+namespace App\Halo5\Definitions;
 
 /**
- * Class Record
- * @package App\Halo5\Definitions
+ * Class Record.
  * @property string $gamertag
- * @property integer $rank
+ * @property int $rank
  * @property Csr $csr
  */
 class Record extends Model
@@ -25,8 +26,7 @@ class Record extends Model
      */
     public function gRank($value)
     {
-        switch ($value)
-        {
+        switch ($value) {
             case 1:
                 return '1st';
 
@@ -37,7 +37,7 @@ class Record extends Model
                 return '3rd';
 
             default:
-                return $value . "th";
+                return $value.'th';
         }
     }
 }

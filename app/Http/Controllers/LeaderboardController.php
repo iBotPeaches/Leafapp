@@ -1,10 +1,9 @@
-<?php namespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
 
 use App\Halo5\Models\Playlist;
 use App\Halo5\Models\Season;
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 
 class LeaderboardController extends Controller
 {
@@ -14,14 +13,13 @@ class LeaderboardController extends Controller
      */
     public function getLeaderboardRedirect(Season $season)
     {
-        $playlist = $season->playlists->first(function ($key, $value)
-        {
+        $playlist = $season->playlists->first(function ($key, $value) {
             return $value->isVisible();
         });
 
         return redirect()->route('leaderboard', [
             'season' => $season,
-            'playlist' => $playlist
+            'playlist' => $playlist,
         ]);
     }
 
@@ -40,8 +38,8 @@ class LeaderboardController extends Controller
             'season' => $season,
             'playlist' => $playlist,
             'rankings' => $playlist->rankings()->with('season', 'account', 'csrr')->paginate(50),
-            'title' => $season->name . ": " . $playlist->name,
-            'description' => "Leaderboard of Halo 5 - " . $season->name . ": " . $playlist->name
+            'title' => $season->name.': '.$playlist->name,
+            'description' => 'Leaderboard of Halo 5 - '.$season->name.': '.$playlist->name,
         ]);
     }
 }
