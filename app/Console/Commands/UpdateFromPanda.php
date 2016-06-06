@@ -92,7 +92,6 @@ class UpdateFromPanda extends Command
 
                     foreach ($season->playlists as $playlist)
                     {
-
                         $this->info('Dispatching update for playlist: ' . $playlist->name);
                         $this->dispatch(new updatePlaylist($playlist));
 
@@ -114,6 +113,7 @@ class UpdateFromPanda extends Command
 
                             try
                             {
+                                $this->info("Downloading via " . $client->url);
                                 $leaderboardCollection = new LeaderboardCollection($client->request());
                                 $this->dispatch(new updateRanking($leaderboardCollection, $mSeason, $mPlaylist));
                             }
